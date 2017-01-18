@@ -4,7 +4,7 @@ from pygame.locals import *
 
 pygame.init()
 
-DISPLAYSURF = pygame.display.set_mode((550, 860))
+DISPLAYSURF = pygame.display.set_mode((640, 480, FULLSCREEN))
 pygame.display.set_caption("Euromast")
 
 black = (0,0,0)
@@ -21,7 +21,14 @@ def main_menu():
     current = True
 
     while current:
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_ESCAPE]:
+            pygame.quit()
+            sys.quit()
+
         for event in pygame.event.get():
+            print(event)
             if event.type == QUIT:
                 pygame.quit()
                 sys.quit()
@@ -35,7 +42,15 @@ def main_menu():
 
 
 def game():
-    while True:
+    current = True
+
+    while current:
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_ESCAPE]:
+            pygame.quit()
+            sys.quit()
+
         for event in pygame.event.get():
             print(event)
             if event.type == QUIT:
