@@ -34,12 +34,14 @@ class Game:
         # Create the player
         self.player = Player(width * 0.2, height * 0.5, width * 0.1)
 
+        # self.button1 = Button("start", 100, 100, 120, 120, red)
 
     # Update game logic
     def update(self):
         # Update entities
         self.player.update()
         self.enemy.update(self.player, self)
+        # self.button1.IsClicked()
 
     # Draw everything
     def draw(self):
@@ -50,6 +52,7 @@ class Game:
         self.enemy.draw(self.screen)
         self.player.draw(self.screen)
         
+        # self.button1.draw(self.screen)
         
         # Draw the score text
         self.score_text = self.font.render("Score: {}".format(self.score),
@@ -114,8 +117,21 @@ class Enemy:
         pygame.draw.circle(screen, (self.health, 0, 0),
                            (int(self.x), int(self.y)), int(self.r))
 
+# class Button:
+#     def __init__(self, text, xPos, yPos, width, height, color):
+#         self.text = text
+#         self.xPos = xPos
+#         self.yPos = yPos
+#         self.width = width
+#         self.height = height
+#         self.color = color
+#         self.rect = get_rect()
 
+#     def draw(self, screen):
+#         pygame.draw.rect(screen, self.color, (int(self.xPos), int(self.yPos), int(self.width), int(self.height)), 0)
     
+#     def IsClicked(self):
+#         return pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos())
 
 # Handle pygame events
 def process_events():
