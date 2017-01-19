@@ -10,7 +10,9 @@
 .idea/tasks.xml
 
 # PyCache
-/__pycache__/
+#Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 
 # Sensitive or high-churn files:
 .idea/dataSources/
