@@ -1,0 +1,17 @@
+Een spel van twee tot vier spelers(leeftijd+14) waarbij aan de hand van vragen, de speler zijn pion mag verplaatsen.
+ 
+Het doel van het spel is het bereiken van de top van de Euromast.
+ Bij aanvang kiest elke speler een character waarna een dobbelsteen wordt gegooid om te kijken wie er als eerste mag beginnen door het hoogste aantal ogen te gooien. 
+
+Bij een gelijkspel wordt er opnieuw gegooid.  De beginnende speler kiest één categorie, deze kan kiezen uit de volgende:Blauw = Sport, Groen = Geografie, Red = Vermaak, Yellow = GeschiedenisVervolgens is de speler rechts aan de beurt om te kiezen uit de overgebleven categorieën.
+
+Spelers plaatsen hun poppetjes op het plateau van het speelbord en voor de gekozen categorie.
+Gedurende het spel:
+De speler kiest een richting(links, rechts, omhoog, omlaag)en gooit vervolgens de dobbelsteen om te bepalen hoeveel stappen er gezet worden aan de hand van het aantal gegooide ogen.
+
+Het is niet toegestaan het poppetje diagonaal te verplaatsen.1 of 2 ogen: 1 stap3 of 4 ogen: 2 stappen5 of 6 ogen: 3 stappen
+Maar om de stappen te mogen verzetten moet er eerst een vraag beantwoord worden. 
+Wanneer de worp één van de volgende getallen bevat: 1,3 of 5, dan wordt er een open vraag gesteld over de startcategorie of die van de huidige plaats waar de speler op staat. Bij de andere getallen is er sprake van een meerkeuze vraag.
+Wanneer vragen niet correct beantwoord kunnen worden binnen 50 seconden, dan gaat de beurt naar de volgende speler zonder dat de speler zijn poppetje mag verplaatsen.Er is één speler per gaatje toegestaan. Als een speler op het gaatje komt waar al 
+een andere speler in staat, dan gooit de speler die al in het gaatje stond eendobbelsteen. Het cijfer op de dobbelsteen na het gooien bepaalt het aantal stappen dat de speler omlaag moet.
+Het spel eindigt wanneer één van de spelers de top bereikt!

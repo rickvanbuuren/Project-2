@@ -33,6 +33,7 @@ class Main():
         used_font = size
         text_surface, text_rectangle = self.text_objects(text, used_font, color)
         text_rectangle.left, text_rectangle.top = pos
+        text_rectangle.width = self.window[0] * 0.80
         display.blit(text_surface, text_rectangle)
 
     def create_button(self, display, content, x, y, w, h, ic, ac, func=False):
@@ -43,8 +44,7 @@ class Main():
                 print(func.__name__)
                 if func == self.main:
                     self.init = False
-                    func()
-                elif func == self.rule_menu:
+                elif func == self.rule_menu or func == self.main_menu:
                     func(display)
                 else:
                     func()
@@ -54,15 +54,24 @@ class Main():
         textSurf, textRect = self.text_objects(content, button_font)
         textRect.center = ((x+(w/2)), (y+(h/2)))
         display.blit(textSurf, textRect)
-     
+
     def rule_menu(self, display):
-        #print(True)
-        while True:     
-            display.fill(BLACK)
-          #  ic, ac = BLACK, DARKBLACK
-           # self.create_buttown(display, "Terug", 0, 0, 150, 50, ic, ac)
+        rules = open("resources/text.txt", "r")
+        display.fill(WHITE)
+        while not self.quit_condition():
+            
+            self.create_button(display, "Terug", 0, 0, 150, 50, DARKBLACK, BLACK, self.main_menu)
+            h = 70
+            for rule in rules:
+                self.display_text(display, TINY_FONT, rule, BLACK, [1, h])
+                h += 20
             pygame.display.update()
             self.clock.tick(15)
+
+        else:
+            self.quit_game()
+
+
 
     def main_menu(self, display):
         BackGround = Background('resources/1960.png',[0,0])
@@ -74,7 +83,7 @@ class Main():
             ic, ac = BLACK, DARKBLACK
             self.create_button(display, "Start", self.window[0]/2 - 75, self.window[1] /2.5, 150, 50, ic, ac, self.main)
             self.create_button(display, "Ranglijst", self.window[0]/2 - 75, self.window[1] /2.5 + 60, 150, 50, ic, ac)
-            self.create_button(display, "Instructies", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac, self.rule_menu)
+            self.create_button(display, "Spelregels", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac, self.rule_menu)
             self.create_button(display, "Afsluiten", self.window[0]/2 - 75, self.window[1] /2.5 + 180, 150, 50, ic, ac, self.quit_game)
             pygame.display.update()
             self.clock.tick(15)

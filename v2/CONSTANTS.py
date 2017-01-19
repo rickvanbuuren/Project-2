@@ -3,6 +3,7 @@ import pygame
 pygame.init()
 
 DEFAULT_FONT = "freesansbold.ttf"
+TINY_FONT  = pygame.font.Font(DEFAULT_FONT,10)
 SMALL_FONT  = pygame.font.Font(DEFAULT_FONT,20)
 MED_FONT    = pygame.font.Font(DEFAULT_FONT,40)
 LARGE_FONT  = pygame.font.Font(DEFAULT_FONT,80)
