@@ -13,6 +13,8 @@ class Game:
         width = 640
         height = 480
         size = (width, height)
+
+        red = (255,0,0)
         
         # Start PyGame
         pygame.init()
@@ -32,6 +34,7 @@ class Game:
         # Create the player
         self.player = Player(width * 0.2, height * 0.5, width * 0.1)
 
+
     # Update game logic
     def update(self):
         # Update entities
@@ -46,6 +49,7 @@ class Game:
         # Draw the entities
         self.enemy.draw(self.screen)
         self.player.draw(self.screen)
+        
         
         # Draw the score text
         self.score_text = self.font.render("Score: {}".format(self.score),
@@ -110,6 +114,8 @@ class Enemy:
         pygame.draw.circle(screen, (self.health, 0, 0),
                            (int(self.x), int(self.y)), int(self.r))
 
+
+    
 
 # Handle pygame events
 def process_events():

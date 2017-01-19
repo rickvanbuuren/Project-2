@@ -29,10 +29,14 @@ def interact_with_database(command):
     
     return results
 
+def insert_player(name, score):
+    return interact_with_database("INSERT INTO score (name, playerscore) VALUES ('{}', {});".format(name, score))
+
+insert_player("Rickvb10", 500)
 
 # Uploads a score into the hiscore table
 def upload_score(name, score):
-    interact_with_database("UPDATE score SET score = {} WHERE name = '{}'"
+    interact_with_database("UPDATE score SET playerscore = {} WHERE name = '{}'"
                            .format(score, name))
 
 
@@ -43,5 +47,5 @@ def download_scores():
 
 # Downloads the top score from database
 def download_top_score():
-    result = interact_with_database("SELECT * FROM score ORDER BY score")[0][1]
+    result = interact_with_database("SELECT * FROM score ORDER BY playerscore")[0][1]
     return result

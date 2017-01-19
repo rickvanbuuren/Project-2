@@ -53,9 +53,9 @@ class Main():
             self.display_text(display, MED_FONT, "Euromast", BLACK, [self.window[0] * 0.415 - 35,20])
             ic, ac = BLACK, DARKBLACK
             self.create_button(display, "Start", self.window[0]/2 - 75, self.window[1] /2.5, 150, 50, ic, ac)
-            self.create_button(display, "Highscores", self.window[0]/2 - 75, self.window[1] /2.5 + 60, 150, 50, ic, ac)
-            self.create_button(display, "Help", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac)
-            self.create_button(display, "Quit", self.window[0]/2 - 75, self.window[1] /2.5 + 180, 150, 50, ic, ac)
+            self.create_button(display, "Ranglijst", self.window[0]/2 - 75, self.window[1] /2.5 + 60, 150, 50, ic, ac)
+            self.create_button(display, "Instructies", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac)
+            self.create_button(display, "Afsluiten", self.window[0]/2 - 75, self.window[1] /2.5 + 180, 150, 50, ic, ac)
 
             pygame.display.update()
             self.clock.tick(15)
