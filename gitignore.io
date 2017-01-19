@@ -9,6 +9,9 @@
 .idea/workspace.xml
 .idea/tasks.xml
 
+# PyCache
+/__pycache__/
+
 # Sensitive or high-churn files:
 .idea/dataSources/
 .idea/dataSources.ids
