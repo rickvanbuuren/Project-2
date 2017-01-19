@@ -14,7 +14,6 @@ class Main():
         self.init = True
         self.caption = caption
         self.clock = pygame.time.Clock()
- 
 
     def quit_condition(self):
         for event in pygame.event.get():
@@ -41,20 +40,33 @@ class Main():
         if x + w > mouse[0] > x and y + h > mouse[1] > y:
             pygame.draw.rect(display, ac, [x, y, w, h])
             if func and pygame.mouse.get_pressed()[0] >= 1:
+                print(func.__name__)
                 if func == self.main:
                     self.init = False
-                func()
+                    func()
+                elif func == self.rule_menu:
+                    func(display)
+                else:
+                    func()
         else:
             pygame.draw.rect(display, ic, [x, y, w, h])
         button_font = SMALL_FONT
         textSurf, textRect = self.text_objects(content, button_font)
         textRect.center = ((x+(w/2)), (y+(h/2)))
         display.blit(textSurf, textRect)
-        
-
+     
+    def rule_menu(self, display):
+        #print(True)
+        while True:     
+            display.fill(BLACK)
+          #  ic, ac = BLACK, DARKBLACK
+           # self.create_buttown(display, "Terug", 0, 0, 150, 50, ic, ac)
+            pygame.display.update()
+            self.clock.tick(15)
 
     def main_menu(self, display):
         BackGround = Background('resources/1960.png',[0,0])
+        
         while not self.quit_condition():
             display.fill(WHITE)
             display.blit(BackGround.image, BackGround.rect)
@@ -62,9 +74,8 @@ class Main():
             ic, ac = BLACK, DARKBLACK
             self.create_button(display, "Start", self.window[0]/2 - 75, self.window[1] /2.5, 150, 50, ic, ac, self.main)
             self.create_button(display, "Ranglijst", self.window[0]/2 - 75, self.window[1] /2.5 + 60, 150, 50, ic, ac)
-            self.create_button(display, "Instructies", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac)
+            self.create_button(display, "Instructies", self.window[0]/2 - 75, self.window[1] /2.5 + 120, 150, 50, ic, ac, self.rule_menu)
             self.create_button(display, "Afsluiten", self.window[0]/2 - 75, self.window[1] /2.5 + 180, 150, 50, ic, ac, self.quit_game)
-
             pygame.display.update()
             self.clock.tick(15)
         else:
