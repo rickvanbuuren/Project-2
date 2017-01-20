@@ -35,7 +35,7 @@ class Main():
         used_font = size
         text_surface, text_rectangle = self.text_objects(text, used_font, color)
         text_rectangle.left, text_rectangle.top = pos
-        text_rectangle.width = self.window[0] * 0.80
+        # text_rectangle.width = self.window[0] * 0.80
         display.blit(text_surface, text_rectangle)
 
     def create_button(self, display, content, x, y, w, h, ic, ac, func=False, cargo=False):
@@ -117,6 +117,7 @@ class Main():
         DISPLAYSURFACE = pygame.display.set_mode(self.window)
         pygame.display.set_caption(self.caption)
         px, py = self.window[0]/2 - 25, self.window[1]-50
+        ic, ac = BLACK, DARKBLACK
         
         while not self.quit_condition():
             yc = 0
@@ -127,6 +128,7 @@ class Main():
                 DISPLAYSURFACE.fill(WHITE)
                 self.display_text(DISPLAYSURFACE, SMALL_FONT, "{Main game}", BLACK, [self.window[0] * 0.40,20])
                 pygame.draw.rect(DISPLAYSURFACE, BLACK, [px, py, 50, 50])
+                self.create_button(DISPLAYSURFACE, "Hoofdmenu", 0, 0, 120, 50, ic, ac, self.main_menu)
 
                 
                 if keyboard[273] >= 1:
