@@ -14,6 +14,7 @@ class Main():
         self.window = window
         self.init = True
         self.player_count = 0
+        self.players = []
         self.caption = caption
         self.clock = pygame.time.Clock()
 
@@ -48,7 +49,7 @@ class Main():
                 if func == self.main:
                     self.init = False
                     func()
-                elif func == self.rule_menu or func == self.main_menu or func == self.player_menu:
+                elif func == self.rule_menu or func == self.main_menu or func == self.player_menu or func == self.player_name_menu:
                     if cargo:
                         self.player_count = cargo
                     func(display)
@@ -78,7 +79,6 @@ class Main():
             self.quit_game()
 
 
-
     def main_menu(self, display):
         BackGround = Background('resources/1960.png',[0,0])
         
@@ -100,17 +100,22 @@ class Main():
         display.fill(WHITE)
         ic, ac = BLACK, DARKBLACK
         while not self.quit_condition():
-            self.create_button(display, "2 Spelers", self.window[0]/2 - 50, self.window[1] /2.5, 100, 50, ic, ac, self.main, 2)
-            self.create_button(display, "3 Spelers", self.window[0]/2 - 50, self.window[1] /2.5 + 60, 100, 50, ic, ac, self.main, 3)
-            self.create_button(display, "4 Spelers", self.window[0]/2 - 50, self.window[1] /2.5 + 120, 100, 50, ic, ac, self.main, 4)
+            self.create_button(display, "2 Spelers", self.window[0]/2 - 50, self.window[1] /2.5, 100, 50, ic, ac, self.player_name_menu, 2)
+            self.create_button(display, "3 Spelers", self.window[0]/2 - 50, self.window[1] /2.5 + 60, 100, 50, ic, ac, self.player_name_menu, 3)
+            self.create_button(display, "4 Spelers", self.window[0]/2 - 50, self.window[1] /2.5 + 120, 100, 50, ic, ac, self.player_name_menu, 4)
 
             pygame.display.update()
             self.clock.tick(15)
         else:
             self.quit_game()
 
-    def player_name_menu(self):
-        pass
+    def player_name_menu(self, display):
+        display.fill(WHITE)
+        for i in range(0,1):
+            self.players.append(inputbox.ask(display, "Your name"))
+
+
+
 
 
     def main(self):
