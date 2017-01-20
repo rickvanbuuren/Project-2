@@ -81,6 +81,9 @@ class Main():
 
     def main_menu(self, display):
         BackGround = Background('resources/1960.png',[0,0])
+
+        self.players = []
+        self.player_count = 0
         
         while not self.quit_condition():
             display.fill(WHITE)
@@ -111,11 +114,21 @@ class Main():
 
     def player_name_menu(self, display):
         display.fill(WHITE)
-        for i in range(0,1):
-            self.players.append(inputbox.ask(display, "Your name"))
 
+        while not self.quit_condition():
+            print(self.player_count)
+            print(self.players)
+            if len(self.players) != self.player_count:
 
-
+                for i in range(self.player_count):
+                    self.players.append(inputbox.ask(display, "Naam van Speler " + str(i + 1)))
+                print("hallo")
+            else:
+                self.init = False
+                self.main()
+        else:
+            print("doei")
+            self.quit_game()
 
 
     def main(self):
