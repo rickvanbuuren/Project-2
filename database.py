@@ -8,6 +8,11 @@ import psycopg2
 # Use the database
 def interact_with_database(command):
     # Connect and set up cursor
+    #try:
+    #   connect("host='128.199.52.191', user='euromast', password='groep6', dbname='euromast'")
+    #except: print("Ik kon geen verbinding maken met de database :(")
+    # Tabelnaam ^ == "scores"
+    # Bij het inserted de id meegeven :P
     connection = psycopg2.connect(dbname="mydb", user="postgres", password="admin")
     cursor = connection.cursor()
     
