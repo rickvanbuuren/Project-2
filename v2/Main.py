@@ -79,6 +79,7 @@ class Main():
                 h += 20
             pygame.display.update()
             self.clock.tick(15)
+            # please delete me
 
         else:
             self.quit_game()
@@ -152,11 +153,28 @@ class Main():
                 self.display_text(DISPLAYSURFACE, SMALL_FONT, "{Main game}", BLACK, [self.window[0] * 0.40,20])
                 pygame.draw.rect(DISPLAYSURFACE, BLACK, [px, py, 50, 50])
                 self.create_button(DISPLAYSURFACE, "Hoofdmenu", 0, 0, 120, 50, ic, ac, self.main_menu)
+                self.create_button(DISPLAYSURFACE, "End Turn", 680, 550, 120, 50, ic, ac, self.main_menu)  
 
+                posX = [150, 204]
+                posY = [290, 344, 398, 452, 506, 560, 614, 648, 722, 776]
+
+                i = 0
+
+                for y in range(0, 10):
+                    for x in range(0, 2):
+                        colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i], posY[y], 50, 50))
+                    colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i+1], posY[y], 50, 50))
+                    
+
+
+                    
                 
-                if keyboard[273] >= 1:
-                    yc = 40
-                    pygame.time.wait(200)
+                
+
+
+                # if keyboard[273] >= 1:
+                #     yc = 40
+                #     pygame.time.wait(200)
 
 
                 py -= yc
@@ -166,5 +184,5 @@ class Main():
             self.quit_game()
 
 
-Euromast = Main((595, 800), "Euromast")
+Euromast = Main((800, 600), "Euromast")
 Euromast.main()
