@@ -2,6 +2,8 @@ import pygame
 import sys
 import time
 import inputbox
+import random
+
 from Player import Player
 from Background import Background
 from pygame.locals import *
@@ -17,6 +19,9 @@ class Main():
         self.players = []
         self.caption = caption
         self.clock = pygame.time.Clock()
+		
+	def dice(min = 1, max = 6):
+		return random.randint(min, max)
 
     def quit_condition(self):
         for event in pygame.event.get():
