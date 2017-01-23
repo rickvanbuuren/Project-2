@@ -20,8 +20,8 @@ class Main():
         self.caption = caption
         self.clock = pygame.time.Clock()
 		
-	def dice(min = 1, max = 6):
-		return random.randint(min, max)
+    def dice(min = 1, max = 6):
+        return random.randint(min, max)
 
     def quit_condition(self):
         for event in pygame.event.get():
