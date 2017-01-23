@@ -155,21 +155,34 @@ class Main():
                 self.create_button(DISPLAYSURFACE, "Hoofdmenu", 0, 0, 120, 50, ic, ac, self.main_menu)
                 self.create_button(DISPLAYSURFACE, "End Turn", 680, 550, 120, 50, ic, ac, self.main_menu)  
 
-                posX = [150, 204]
-                posY = [290, 344, 398, 452, 506, 560, 614, 648, 722, 776]
+                posX_start = 150
+                posY_start = 290
+
+                boxWidth = 50
+                boxHeight = 25
+
+                distance = 4
+                
+                posX = [posX_start, posX_start + (boxWidth * 1) + (distance * 1)]
+                
+                posY = [posY_start, 
+                posY_start + (boxHeight * 1) + (distance * 1), 
+                posY_start + (boxHeight * 2) + (distance * 2), 
+                posY_start + (boxHeight * 3) + (distance * 3),
+                posY_start + (boxHeight * 4) + (distance * 4),
+                posY_start + (boxHeight * 5) + (distance * 5),
+                posY_start + (boxHeight * 6) + (distance * 6),
+                posY_start + (boxHeight * 7) + (distance * 7),
+                posY_start + (boxHeight * 8) + (distance * 8),
+                posY_start + (boxHeight * 9) + (distance * 9)]
 
                 i = 0
 
                 for y in range(0, 10):
                     for x in range(0, 2):
-                        colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i], posY[y], 50, 50))
-                    colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i+1], posY[y], 50, 50))
+                        colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i], posY[y], boxWidth, boxHeight))
+                    colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i+1], posY[y], boxWidth, boxHeight))
                     
-
-
-                    
-                
-                
 
 
                 # if keyboard[273] >= 1:
