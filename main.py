@@ -14,7 +14,8 @@ class Game:
         height = 480
         size = (width, height)
 
-        red = (255,0,0)
+        red = (255, 0, 0)
+        blue = (0, 0, 255)
         
         # Start PyGame
         pygame.init()
@@ -34,7 +35,10 @@ class Game:
         # Create the player
         self.player = Player(width * 0.2, height * 0.5, width * 0.1)
 
-        # self.button1 = Button("start", 100, 100, 120, 120, red)
+        self.button1 = Button("start", 100, 100, 120, 120, red, blue)
+        self.button2 = Button("start", 300, 50, 110, 67, red, blue)
+        self.button3 = Button("start", 200, 150, 120, 120, red, blue)
+        self.button4 = Button("start", 200, 200, 120, 120, red, blue)
 
     # Update game logic
     def update(self):
@@ -52,7 +56,11 @@ class Game:
         self.enemy.draw(self.screen)
         self.player.draw(self.screen)
         
-        # self.button1.draw(self.screen)
+        self.button1.draw(self.screen)
+        self.button2.draw(self.screen)
+        self.button3.draw(self.screen)
+        self.button4.draw(self.screen)
+        
         
         # Draw the score text
         self.score_text = self.font.render("Score: {}".format(self.score),
@@ -117,21 +125,41 @@ class Enemy:
         pygame.draw.circle(screen, (self.health, 0, 0),
                            (int(self.x), int(self.y)), int(self.r))
 
-# class Button:
-#     def __init__(self, text, xPos, yPos, width, height, color):
-#         self.text = text
-#         self.xPos = xPos
-#         self.yPos = yPos
-#         self.width = width
-#         self.height = height
-#         self.color = color
-#         self.rect = get_rect()
 
-#     def draw(self, screen):
-#         pygame.draw.rect(screen, self.color, (int(self.xPos), int(self.yPos), int(self.width), int(self.height)), 0)
-    
-#     def IsClicked(self):
-#         return pygame.mouse.get_pressed()[0] and self.rect.collidepoint(pygame.mouse.get_pos())
+class Button:
+    def __init__(self, text, xPos, yPos, width, height, color, hover_color):
+        self.text = text
+        self.xPos = xPos
+        self.yPos = yPos
+        self.width = width
+        self.height = height
+        self.color = color
+        self.hover_color = hover_color
+        self.font = pygame.font.Font(None, 30)
+
+    # def text_objects(self, text, font, color = WHITE):
+    #     text_surface = font.render(text, True, color)
+    #     return text_surface, text_surface.get_rect()
+
+    def draw(self, screen):
+        mouse = pygame.mouse.get_pos()
+
+        red = (255, 0, 0)
+        blue = (0, 0, 255)
+
+        if self.xPos + self.width > mouse[0] > self.xPos and self.yPos + self.height > mouse[1] > self.yPos:
+            pygame.draw.rect(screen, self.hover_color, (int(self.xPos), int(self.yPos), int(self.width), int(self.height)), 0)
+        else:
+            pygame.draw.rect(screen, self.color, (int(self.xPos), int(self.yPos), int(self.width), int(self.height)), 0)
+
+        # smallText = self.font
+        # textSurf, textRect = text_objects("GO!", smallText)
+        # textRect.center = ( (self.xPos+(self.width/2)), (self.yPos+(self.height/2)) )
+        # self.screen.gameDisplay.blit(textSurf, textRect)
+
+        # self.text = self.font.render("Score: {}".format(self.text), 1, (255, 255, 255))
+        # self.screen.blit(self.text, (16, 16))
+        
 
 # Handle pygame events
 def process_events():
