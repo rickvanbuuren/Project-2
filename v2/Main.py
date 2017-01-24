@@ -54,7 +54,7 @@ class Main():
                 if func == self.main:
                     self.init = False
                     func()
-                elif func == self.rule_menu or func == self.main_menu or func == self.player_menu or func == self.player_name_menu:
+                elif func == self.rule_menu or func == self.main_menu or func == self.player_menu or func == self.player_name_menu or func == self.switch_board_left:
                     if cargo:
                         self.player_count = cargo
                     func(display)
@@ -118,22 +118,57 @@ class Main():
         else:
             self.quit_game()
 
+    def switch_board_left(self, display):
+        boardColors = [LIME, PURPLE, MAROON, TEAL]
+        print("left")
+        self.built_tower(display, boardColors[0])
+
+    def switch_board_right(self, display):
+        pass
+
+    def built_tower(self, display, color):
+        posX_start = self.window[0] * 0.3
+        posY_start = self.window[0] * 0.3
+
+        boxWidth = 50
+        boxHeight = 25
+
+        distance = 4
+        
+        posX = [posX_start, posX_start + (boxWidth * 1) + (distance * 1)]
+        
+        posY = [posY_start, 
+        posY_start + (boxHeight * 1) + (distance * 1), 
+        posY_start + (boxHeight * 2) + (distance * 2), 
+        posY_start + (boxHeight * 3) + (distance * 3),
+        posY_start + (boxHeight * 4) + (distance * 4),
+        posY_start + (boxHeight * 5) + (distance * 5),
+        posY_start + (boxHeight * 6) + (distance * 6),
+        posY_start + (boxHeight * 7) + (distance * 7),
+        posY_start + (boxHeight * 8) + (distance * 8),
+        posY_start + (boxHeight * 9) + (distance * 9)]
+
+
+        i = 0
+
+        for y in range(0, 10):
+            for x in range(0, 2):
+                Torenblokje = pygame.draw.rect(display, color, (posX[i], posY[y], boxWidth, boxHeight))
+                print("in loop")
+            Torenblokje = pygame.draw.rect(display, color, (posX[i+1], posY[y], boxWidth, boxHeight))     
+
     def player_name_menu(self, display):
         display.fill(WHITE)
 
         while not self.quit_condition():
-            print(self.player_count)
-            print(self.players)
             if len(self.players) != self.player_count:
 
                 for i in range(self.player_count):
                     self.players.append(inputbox.ask(display, "Naam van Speler " + str(i + 1)))
-                print("hallo")
             else:
                 self.init = False
                 self.main()
         else:
-            print("doei")
             self.quit_game()
 
 
@@ -142,53 +177,23 @@ class Main():
         pygame.display.set_caption(self.caption)
         px, py = self.window[0]/2 - 25, self.window[1]-50
         ic, ac = BLACK, DARKBLACK
-        
+        playerColors = [BLUE, FUCHSIA, YELLOW, GREEN]
+        DISPLAYSURFACE.fill(WHITE)
+        self.built_tower(DISPLAYSURFACE, BLUE)
+        keyboard = pygame.key.get_pressed()
+
+        for i in range(len(self.players)):
+            pygame.draw.circle(DISPLAYSURFACE, playerColors[i], [int(self.window[0] * 0.3 + 10 + (i * 25)), int(600 - 20)], 10)
+
         while not self.quit_condition():
             yc = 0
             if self.init:
                 self.main_menu(DISPLAYSURFACE)
             else:
-                keyboard = pygame.key.get_pressed()
-                DISPLAYSURFACE.fill(WHITE)
-                self.display_text(DISPLAYSURFACE, SMALL_FONT, "{Main game}", BLACK, [self.window[0] * 0.40,20])
-                pygame.draw.rect(DISPLAYSURFACE, BLACK, [px, py, 50, 50])
                 self.create_button(DISPLAYSURFACE, "Hoofdmenu", 0, 0, 120, 50, ic, ac, self.main_menu)
-                self.create_button(DISPLAYSURFACE, "End Turn", 680, 550, 120, 50, ic, ac, self.main_menu)  
-
-                posX_start = 150
-                posY_start = 290
-
-                boxWidth = 50
-                boxHeight = 25
-
-                distance = 4
-                
-                posX = [posX_start, posX_start + (boxWidth * 1) + (distance * 1)]
-                
-                posY = [posY_start, 
-                posY_start + (boxHeight * 1) + (distance * 1), 
-                posY_start + (boxHeight * 2) + (distance * 2), 
-                posY_start + (boxHeight * 3) + (distance * 3),
-                posY_start + (boxHeight * 4) + (distance * 4),
-                posY_start + (boxHeight * 5) + (distance * 5),
-                posY_start + (boxHeight * 6) + (distance * 6),
-                posY_start + (boxHeight * 7) + (distance * 7),
-                posY_start + (boxHeight * 8) + (distance * 8),
-                posY_start + (boxHeight * 9) + (distance * 9)]
-
-                i = 0
-
-                for y in range(0, 10):
-                    for x in range(0, 2):
-                        colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i], posY[y], boxWidth, boxHeight))
-                    colorTorenblokje = pygame.draw.rect(DISPLAYSURFACE, RED, (posX[i+1], posY[y], boxWidth, boxHeight))
-                    
-
-
-                # if keyboard[273] >= 1:
-                #     yc = 40
-                #     pygame.time.wait(200)
-
+                self.create_button(DISPLAYSURFACE, "End Turn", 680, 550, 120, 50, ic, ac, self.main_menu)
+                self.create_button(DISPLAYSURFACE, "<---", 800 - 670, 600 - 100, 90, 40, ic, ac, self.switch_board_left)
+                self.create_button(DISPLAYSURFACE, "--->", 800 - 440, 600 - 100, 90, 40, ic, ac, self.switch_board_right)  
 
                 py -= yc
                 pygame.display.update()
