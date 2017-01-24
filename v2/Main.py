@@ -3,6 +3,7 @@ import sys
 import time
 import inputbox
 import random
+import os
 
 from Player import Player
 from Background import Background
@@ -19,6 +20,8 @@ class Main():
         self.players = []
         self.caption = caption
         self.clock = pygame.time.Clock()
+        self.questions = {}
+        self.root = sys.path[0]
 		
     def dice(min = 1, max = 6):
         return random.randint(min, max)
@@ -120,7 +123,6 @@ class Main():
 
     def switch_board_left(self, display):
         boardColors = [LIME, PURPLE, MAROON, TEAL]
-        print("left")
         self.built_tower(display, boardColors[0])
 
     def switch_board_right(self, display):
@@ -154,7 +156,6 @@ class Main():
         for y in range(0, 10):
             for x in range(0, 2):
                 Torenblokje = pygame.draw.rect(display, color, (posX[i], posY[y], boxWidth, boxHeight))
-                print("in loop")
             Torenblokje = pygame.draw.rect(display, color, (posX[i+1], posY[y], boxWidth, boxHeight))     
 
     def player_name_menu(self, display):
@@ -174,6 +175,7 @@ class Main():
 
     def main(self):
         DISPLAYSURFACE = pygame.display.set_mode(self.window)
+        # self.loadQuestions()
         pygame.display.set_caption(self.caption)
         px, py = self.window[0]/2 - 25, self.window[1]-50
         ic, ac = BLACK, DARKBLACK
@@ -181,6 +183,21 @@ class Main():
         DISPLAYSURFACE.fill(WHITE)
         self.built_tower(DISPLAYSURFACE, BLUE)
         keyboard = pygame.key.get_pressed()
+        redAnswers = ["a", "b"]
+        greenAnswers = ["b", "b"]
+
+        for subdir, dirs, files in os.walk(self.root + "/resources/questioncards/red"):
+            for i, file in enumerate(files):
+                self.questions.setdefault("red", {})[i] = {"file": file, "answer": redAnswers[i],"isUsed": False}
+
+        for subdir, dirs, files in os.walk(self.root + "/resources/questioncards/green"):
+            for i, file in enumerate(files):
+                self.questions.setdefault("green", {})[i] = {"file": file, "answer": greenAnswers[i],"isUsed": False}
+
+        print(self.questions)
+
+
+        # self.questions = pygame.image.load(os.path.join('data', '/resources/QuestionCard1.jpg'))
 
         for i in range(len(self.players)):
             pygame.draw.circle(DISPLAYSURFACE, playerColors[i], [int(self.window[0] * 0.3 + 10 + (i * 25)), int(600 - 20)], 10)
