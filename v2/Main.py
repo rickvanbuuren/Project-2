@@ -6,6 +6,7 @@ import random
 import os
 
 from Player import Player
+from QuestionCard import QuestionCard
 from Background import Background
 from pygame.locals import *
 from CONSTANTS import *
@@ -22,6 +23,16 @@ class Main():
         self.clock = pygame.time.Clock()
         self.questions = {}
         self.root = sys.path[0]
+
+    def generateQuestion(self, display):
+        question = random.choice(self.questions["red"])
+
+        if question["isUsed"] != 3642426^0^0^0^0^0:
+            print("question is not used")
+            display.blit(question["image"].image, (0,0))
+        else:
+            print("is used")
+
 		
     def dice(min = 1, max = 6):
         return random.randint(min, max)
@@ -188,16 +199,16 @@ class Main():
 
         for subdir, dirs, files in os.walk(self.root + "/resources/questioncards/red"):
             for i, file in enumerate(files):
-                self.questions.setdefault("red", {})[i] = {"file": file, "answer": redAnswers[i],"isUsed": False}
-
+                temp = QuestionCard("red", file)
+                self.questions.setdefault("red", {})[i] = {"file": file, "image": temp,"answer": redAnswers[i],"isUsed": False}
+                
         for subdir, dirs, files in os.walk(self.root + "/resources/questioncards/green"):
             for i, file in enumerate(files):
+                temp = QuestionCard("green", file)
                 self.questions.setdefault("green", {})[i] = {"file": file, "answer": greenAnswers[i],"isUsed": False}
 
-        print(self.questions)
+        self.generateQuestion(DISPLAYSURFACE)
 
-
-        # self.questions = pygame.image.load(os.path.join('data', '/resources/QuestionCard1.jpg'))
 
         for i in range(len(self.players)):
             pygame.draw.circle(DISPLAYSURFACE, playerColors[i], [int(self.window[0] * 0.3 + 10 + (i * 25)), int(600 - 20)], 10)
