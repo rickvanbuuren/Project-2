@@ -19,11 +19,11 @@ pygame.init()
 ### TODO: Look at the player object. Perhaps add values and whatnot.##
 ### TODO: Add up and down button.                                   ##
 ### TODO: Think of how a player moves from one surface to the other.##
-### TODO: Card ideas -right> screen                                 ##
+### TODO: Card ideas -right> screen-------DONE                      ##
 ### TODO: Add turn logic                                            ##
 ### TODO: Visual element which shows who's turn it is               ##
 ### TODO: Color list with playernames next to it.                   ##
-### TODO: Change image resolution to ...*175    .                   ##
+### TODO: Change image resolution to ...*175----------DONE          ##
 ######################################################################
 ######################################################################
 
@@ -44,7 +44,8 @@ class Main():
         self.bp = Block(100,250,(BLACK))
         self.mp = Block(250,90,(BLACK))
         self.up = Block(50,250,(BLACK))
-        self.cards = Block(350, 700, (BLACK))
+        self.cards = Block(328, 700, (BLACK))
+        self.player_colors = [LIME, PURPLE, MAROON, TEAL]
 
 
     def bp_init(self, tp = None, y_range = 2, fp = 50, block_dict = None, size = (50, 25), block_colors = [(0,0,255), (255,0,0), (255,255,0), (0,0,0)]):
@@ -141,8 +142,6 @@ class Main():
                 self.up.image.blit(value['block'].image, (x_pos,y_pos))
                 y_pos += 25
         
-        
-
     def generateQuestion(self, display):
         question = random.choice(self.questions["red"])
 
@@ -258,11 +257,10 @@ class Main():
 
     def player_name_menu(self, display):
         display.fill(WHITE)
-        player_colors = [LIME, PURPLE, MAROON, TEAL]
         while not self.quit_condition():
             if len(self.players) != self.player_count:
                 for i in range(self.player_count):
-                    temp = Player(10, 10, player_colors[i])
+                    temp = Player(10, 10, self.player_colors[i])
                     self.players.setdefault(inputbox.ask(display, "Naam van Speler " + str(i + 1)), {'init_rol': self.dice(), 'sprite': temp})
             else:
                 self.init = False
@@ -276,15 +274,19 @@ class Main():
 
     def main(self):
         DISPLAYSURFACE = pygame.display.set_mode(self.window)
-        # self.loadQuestions()
         pygame.display.set_caption(self.caption)
         px, py = self.window[0]/2 - 25, self.window[1]-50
         ic, ac = BLACK, DARKBLACK
         DISPLAYSURFACE.fill(WHITE)
         keyboard = pygame.key.get_pressed()
+        redStack = Background('resources/QSRed.jpg',[0 , 0])
+        greenStack = Background('resources/QSGreen.jpg',[0 , 170])
         redAnswers = ["a", "b"]
         greenAnswers = ["b", "b"]
 
+        
+
+        
         for subdir, dirs, files in os.walk(self.root + "/resources/questioncards/red"):
             for i, file in enumerate(files):
                 temp = QuestionCard("red", file)
@@ -297,6 +299,8 @@ class Main():
 
         #self.generateQuestion(DISPLAYSURFACE)
 
+        print(self.players)
+
         while not self.quit_condition():
             yc = 0
             if self.init:
@@ -306,10 +310,17 @@ class Main():
                 self.create_button(DISPLAYSURFACE, "Beurt beeindigen", 0, 50, 120, 50, ic, ac, self.main_menu)
                 self.create_button(DISPLAYSURFACE, "Links", 0, 100, 120, 50, ic, ac, self.draw_left)
                 self.create_button(DISPLAYSURFACE, "Rechts", 0, 150, 120, 50, ic, ac, self.draw_right)
-                DISPLAYSURFACE.blit(self.bp.image, ((self.window[0]/2)-(self.bp.rect.width/2)-200, self.window[1] - self.bp.rect.height))
-                DISPLAYSURFACE.blit(self.mp.image, ((self.window[0]/2)-(self.mp.rect.width/2)-200, self.window[1] - (self.bp.rect.height + self.mp.rect.height)))
-                DISPLAYSURFACE.blit(self.up.image, ((self.window[0]/2)-(self.up.rect.width/2)-200, (self.window[1] - self.bp.rect.height) - (self.bp.rect.height + self.mp.rect.height)))
+                DISPLAYSURFACE.blit(self.bp.image, ((self.window[0]/2)-(self.bp.rect.width/2)-200, self.window[1] - self.bp.rect.height - 50))
+                DISPLAYSURFACE.blit(self.mp.image, ((self.window[0]/2)-(self.mp.rect.width/2)-200, self.window[1] - (self.bp.rect.height + self.mp.rect.height) - 50))
+                DISPLAYSURFACE.blit(self.up.image, ((self.window[0]/2)-(self.up.rect.width/2)-200, (self.window[1] - self.bp.rect.height) - (self.bp.rect.height + self.mp.rect.height)- 50))
                 DISPLAYSURFACE.blit(self.cards.image, (self.window[0] - (self.cards.rect.width), 0))
+                self.cards.image.blit(redStack.image, (redStack.rect.left, redStack.rect.top))
+                self.cards.image.blit(greenStack.image, (greenStack.rect.left, greenStack.rect.top))
+                
+                for i in range(len(self.players)):
+                    pygame.draw.circle(DISPLAYSURFACE, self.player_colors[i], [int(self.window[0] * 0.5), int(self.window[1] * 0.05 + (i * 40))], 10)
+                    # self.display_text(DISPLAYSURFACE, SMALL_FONT , self.players[i] + " Score " + "100", BLACK, [int(self.window[0] * 0.5 + 40), int(self.window[1] * 0.05 + (i * 40) - 10)])
+
                 py -= yc
                 pygame.display.update()
                 self.clock.tick(15)
