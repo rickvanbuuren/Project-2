@@ -14,15 +14,18 @@ from Block import Block
 
 pygame.init()
 
-###
-### TODO: Look at the player object. Perhaps add values and whatnot.
-### TODO: Add up and down button.
-### TODO: Think of how a player moves from one surface to the other.
-### TODO: Card ideas -right> screen
-### TODO: Add turn logic
-### TODO: Visual element which shows who's turn it is
-### TODO: Color list with playernames next to it.
-###
+######################################################################
+######################################################################
+### TODO: Look at the player object. Perhaps add values and whatnot.##
+### TODO: Add up and down button.                                   ##
+### TODO: Think of how a player moves from one surface to the other.##
+### TODO: Card ideas -right> screen                                 ##
+### TODO: Add turn logic                                            ##
+### TODO: Visual element which shows who's turn it is               ##
+### TODO: Color list with playernames next to it.                   ##
+### TODO: Change image resolution to ...*175    .                   ##
+######################################################################
+######################################################################
 
 class Main():
     def __init__(self, window, caption):
@@ -38,10 +41,10 @@ class Main():
         self.t_blocks = {}
         self.current_player = 0
         self.current_view_player = 0
-        self.bp = Block(100,250,(0,0,0))
-        self.mp = Block(250,90,(0,0,0))
-        self.up = Block(50,250,(0,0,0))
-        self.switch = False
+        self.bp = Block(100,250,(BLACK))
+        self.mp = Block(250,90,(BLACK))
+        self.up = Block(50,250,(BLACK))
+        self.cards = Block(350, 700, (BLACK))
 
 
     def bp_init(self, tp = None, y_range = 2, fp = 50, block_dict = None, size = (50, 25), block_colors = [(0,0,255), (255,0,0), (255,255,0), (0,0,0)]):
@@ -155,6 +158,9 @@ class Main():
 
     def quit_condition(self):
         for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    return True
             if event.type == QUIT:
                 return True
             return False
@@ -171,7 +177,6 @@ class Main():
         used_font = size
         text_surface, text_rectangle = self.text_objects(text, used_font, color)
         text_rectangle.left, text_rectangle.top = pos
-        # text_rectangle.width = self.window[0] * 0.80
         display.blit(text_surface, text_rectangle)
 
     def create_button(self, display, content, x, y, w, h, ic, ac, func=False, cargo=False):
@@ -266,6 +271,8 @@ class Main():
         else:
             self.quit_game()
 
+    def draw_player(self, display):
+        pass
 
     def main(self):
         DISPLAYSURFACE = pygame.display.set_mode(self.window)
@@ -296,12 +303,13 @@ class Main():
                 self.main_menu(DISPLAYSURFACE)
             else:
                 self.create_button(DISPLAYSURFACE, "Hoofdmenu", 0, 0, 120, 50, ic, ac, self.main_menu)
-                self.create_button(DISPLAYSURFACE, "Beurt beëindigen", 0, 50, 120, 50, ic, ac, self.main_menu)
+                self.create_button(DISPLAYSURFACE, "Beurt beeindigen", 0, 50, 120, 50, ic, ac, self.main_menu)
                 self.create_button(DISPLAYSURFACE, "Links", 0, 100, 120, 50, ic, ac, self.draw_left)
                 self.create_button(DISPLAYSURFACE, "Rechts", 0, 150, 120, 50, ic, ac, self.draw_right)
-                DISPLAYSURFACE.blit(self.bp.image, ((self.window[0]/2)-(self.bp.rect.width/2), self.window[1] - self.bp.rect.height))
-                DISPLAYSURFACE.blit(self.mp.image, ((self.window[0]/2)-(self.mp.rect.width/2), self.window[1] - (self.bp.rect.height + self.mp.rect.height)))
-                DISPLAYSURFACE.blit(self.up.image, ((self.window[0]/2)-(self.up.rect.width/2), (self.window[1] - self.bp.rect.height) - (self.bp.rect.height + self.mp.rect.height)))
+                DISPLAYSURFACE.blit(self.bp.image, ((self.window[0]/2)-(self.bp.rect.width/2)-200, self.window[1] - self.bp.rect.height))
+                DISPLAYSURFACE.blit(self.mp.image, ((self.window[0]/2)-(self.mp.rect.width/2)-200, self.window[1] - (self.bp.rect.height + self.mp.rect.height)))
+                DISPLAYSURFACE.blit(self.up.image, ((self.window[0]/2)-(self.up.rect.width/2)-200, (self.window[1] - self.bp.rect.height) - (self.bp.rect.height + self.mp.rect.height)))
+                DISPLAYSURFACE.blit(self.cards.image, (self.window[0] - (self.cards.rect.width), 0))
                 py -= yc
                 pygame.display.update()
                 self.clock.tick(15)
