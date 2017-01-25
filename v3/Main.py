@@ -16,10 +16,12 @@ pygame.init()
 
 ######################################################################
 ######################################################################
-### TODO: Look at the player object. Perhaps add values and whatnot.##
 ### TODO: Add up and down button.                                   ##
 ### TODO: Think of how a player moves from one surface to the other.##
+<<<<<<< Updated upstream
 ### TODO: Card ideas -right> screen-------DONE                      ##
+=======
+>>>>>>> Stashed changes
 ### TODO: Add turn logic                                            ##
 ### TODO: Visual element which shows who's turn it is               ##
 ### TODO: Color list with playernames next to it.                   ##
@@ -31,6 +33,7 @@ class Main():
     def __init__(self, window, caption):
         self.window = window
         self.init = True
+        self.init_rolls = random.sample([1, 2, 3, 4, 5, 6], (len([1,2,3,4,5,6]))) # reset on game restart mane
         self.player_count = 0
         self.players = {}
         self.caption = caption
@@ -152,9 +155,6 @@ class Main():
             print("is used")
 
 		
-    def dice(self, min = 1, max = 6):
-        return random.randint(min, max)
-
     def quit_condition(self):
         for event in pygame.event.get():
             if event.type == KEYDOWN:
@@ -264,8 +264,14 @@ class Main():
         while not self.quit_condition():
             if len(self.players) != self.player_count:
                 for i in range(self.player_count):
+<<<<<<< Updated upstream
                     temp = Player(10, 10, self.player_colors[i])
                     self.players.setdefault(inputbox.ask(display, "Naam van Speler " + str(i + 1)), {'init_rol': self.dice(), 'sprite': temp})
+=======
+                    temp = Player(10, 10, player_colors[i])
+                    self.players.setdefault(inputbox.ask(display, "Naam van Speler " + str(i + 1)), {'init_rol': self.init_rolls[i], 'sprite': temp})
+                    
+>>>>>>> Stashed changes
             else:
                 self.init = False
                 print(self.players)
@@ -274,6 +280,8 @@ class Main():
             self.quit_game()
 
     def draw_player(self, display):
+        pass
+    def player_turn(self):
         pass
 
     def main(self):
