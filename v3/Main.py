@@ -222,6 +222,10 @@ class Main():
 
 
     def main_menu(self, display):
+        self.current_view_player = 0
+        self.current_player = 0
+        self.players = {}
+        self.player_count = {}
         BackGround = Background('resources/1960.png',[0,0])
 
         self.player_count = 0
